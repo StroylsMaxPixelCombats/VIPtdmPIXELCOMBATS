@@ -1,1 +1,44 @@
-
+{
+  "Name": "ФАРМ <i>(API 1.0)</i>",
+  "Description": "Farm sunducow i opyta. Фарм сундуков и опыта",
+  "StartClientVersion": 334,
+  "MapFilter": {
+    "IsBlank": false,
+    "HasParcourEnd": false
+  },
+  "MapLists": [
+    {
+      "MapListId": 324,
+      "Name": "Официальные карты"
+    },
+    {
+      "MapListId": 581
+    }
+  ],
+  "Parameters": {
+    "Bool": [
+      {
+        "Name": "MapRotation",
+        "DisplayName": "СМЕНА КАРТ",
+        "Default": true
+      },
+      {
+        "Name": "OnlyKnives",
+        "DisplayName": "БОЙ НА НОЖАХ"
+      },
+      {
+        "Name": "PartialDesruction",
+        "DisplayName": "ЛОМАЮТСЯ ТОЛЬКО БЛОКИ ИГРОКОВ"
+      },
+      {
+        "Name": "LoosenBlocks",
+        "DisplayName": "СЛАБЫЕ БЛОКИ"
+      },
+      {
+        "Name": "FriendlyFire",
+        "DisplayName": "УРОН ПО СВОИМ"
+      }
+    ]
+  }
+}
+  
