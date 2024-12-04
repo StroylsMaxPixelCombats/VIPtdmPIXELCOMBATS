@@ -144,9 +144,6 @@ mainTimer.OnTimer.Add(function() {
 		SetBuildMode();
 		break;
 	case BuildModeStateValue:
-		SetGameMode();
-		break;
-	case GameStateValue:
 		SetEndOfMatchMode();
 		break;
 	case EndOfMatchStateValue:
