@@ -5,8 +5,8 @@ try {
 	
 // Константы:
 var WaitingPlayersTime = 1;
-var BuildBaseTime = 10;
-var EndOfMatchTime = 5;
+var BuildBaseTime = 11;
+var EndOfMatchTime = 6;
 
 // Константы, имён:
 var WaitingStateValue = "Waiting";
@@ -39,8 +39,8 @@ BlueTeam.Spawns.SpawnPointsGroups.Add(1);
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
 BlueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 RedTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
-RedTeam.Properties.Get("Scores").Value += 99999;
-RedTeam.Properties.Get("Kills").Value += 99999;
+RedTeam.Properties.Get("Scores").Value += 999999;
+RedTeam.Properties.Get("Kills").Value += 999999;
 BlueTeam.Properties.Get("Scores").Value += 99999;
 BlueTeam.Properties.Get("Kills").Value += 99999;
 
