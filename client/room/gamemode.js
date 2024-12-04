@@ -5,8 +5,8 @@ try {
 	
 // Константы:
 var WaitingPlayersTime = 1;
-var BuildBaseTime = 11;
-var EndOfMatchTime = 6;
+var BuildBaseTime = 10;
+var EndOfMatchTime = 5;
 
 // Константы, имён:
 var WaitingStateValue = "Waiting";
@@ -150,7 +150,7 @@ mainTimer.OnTimer.Add(function() {
 		SetEndOfMatchMode();
 		break;
 	case EndOfMatchStateValue:
-		RestartGame();
+		Game.RestartGame();
 		break;
 	}
 });
@@ -193,10 +193,7 @@ function SetEndOfMatchMode() {
 	Game.GameOver(LeaderBoard.GetTeams());
 	Spawns.GetContext().Enable = false;
 	Spawns.GetContext().Despawn();
-}
-function RestartGame() {
-	Game.RestartGame();
-	mainTimer.Restart(MockModeTime);
+	mainTimer.Restart(EndOfMatchTime);
 }
 function SpawnTeams() {
 	var Teams = Teams.Spawn();
