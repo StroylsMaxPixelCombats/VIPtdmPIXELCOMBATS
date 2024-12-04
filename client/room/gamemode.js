@@ -37,7 +37,7 @@ var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
 RedTeam.Properties.Get("Scores").Value += 99999;
-RedTeam.Propertues.Get("Kills").Value += 99999;
+RedTeam.Properties.Get("Kills").Value += 99999;
 BlueTeam.Properties.Get("Kills").Value += 99999;
 BlueTeam.Properties.Get("Scores").Value += 99999;
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
