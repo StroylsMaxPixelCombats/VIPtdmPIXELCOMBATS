@@ -36,8 +36,10 @@ Teams.Add("Red", "[|•<< ФАРМ >>•|]", new Color(0, 1, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
-RedReam.Properties.Scores.Value += 1000000;
-BlueTeam.Properties.Scores.Value += 10000000;
+RedReam.Properties.Get("Scores").Value += 99999;
+RedTeam.Propertues.Get("Kills").Value += 99999;
+BlueTeam.Properties.Get("Kills").Value += 99999;
+BlueTeam.Properties.Get("Scores").Value += 99999;
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
 BlueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 RedTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
@@ -199,8 +201,6 @@ function SpawnTeams() {
 
 } catch (e) {
         Players.All.forEach(p => {
-	  Players.Properties.kills.Value += 1000000;
-            Players.Properties.Scores.Value += 100000;
                 p.PopUp(`${e.name}: ${e.message} ${e.stack}`);
         });
 }
