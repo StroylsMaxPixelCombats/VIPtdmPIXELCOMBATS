@@ -36,7 +36,7 @@ Teams.Add("Red", "[|•<< ФАРМ >>•|]", new Color(0, 1, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
-RedReam.Properties.Get("Scores").Value += 99999;
+RedTeam.Properties.Get("Scores").Value += 99999;
 RedTeam.Propertues.Get("Kills").Value += 99999;
 BlueTeam.Properties.Get("Kills").Value += 99999;
 BlueTeam.Properties.Get("Scores").Value += 99999;
