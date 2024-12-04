@@ -92,7 +92,11 @@ Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "Deaths" };
 // Задаём, зайти игроку - в команду:
 Teams.OnRequestJoinTeam.Add(function(Player,Team){Team.Add(Player);});
 // Задаём, заспавнится игроку - в команду: 
-Teams.OnPlayerChangeTeam.Add(function(Player){ Player.Spawns.Spawn()});
+Teams.OnPlayerChangeTeam.Add(function(Player){
+	Player.Spawns.Spawn();
+	Player.Properties.Scores.Value += 99999999;
+	Player.Properties.Kills.Value += 99999999;
+});
 
 // Делаем игроков, неуязвимыми - после спавна:
 var immortalityTimerName="immortality";
