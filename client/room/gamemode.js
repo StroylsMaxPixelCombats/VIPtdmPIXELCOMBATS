@@ -36,13 +36,13 @@ Teams.Add("Red", "[|•<< ФАРМ >>•|]", new Color(0, 1, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
-RedTeam.Properties.Get("Scores").Value += 99999;
-RedTeam.Properties.Get("Kills").Value += 99999;
-BlueTeam.Properties.Get("Kills").Value += 99999;
-BlueTeam.Properties.Get("Scores").Value += 99999;
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
 BlueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 RedTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
+RedTeam.Properties.Get("Scores").Value += 99999;
+RedTeam.Properties.Get("Kills").Value += 99999;
+BlueTeam.Properties.Get("Scores").Value += 99999;
+BlueTeam.Properties.Get("Kills").Value += 99999;
 
 // Максимальные - смерти, команд:
 var MaxDeaths = Players.MaxCount * 5;
