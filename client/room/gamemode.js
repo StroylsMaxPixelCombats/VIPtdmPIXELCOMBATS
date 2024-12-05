@@ -3,15 +3,18 @@ import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, B
 
 // Константы:
 var WaitingPlayersTime = 1;
-var BuildBaseTime = 21;
+var BuildBaseTime = 31;
 var GameModeTime = 601;
 var EndOfMatchTime = 11;
+var VoteTime = 21;
+var MockModeTime = 21;
 
 // Константы, имён:
 var WaitingStateValue = "Waiting";
 var BuildModeStateValue = "BuildMode";
 var GameStateValue = "Game";
 var EndOfMatchStateValue = "EndOfMatch";
+var MockModeStateValue = "MockMode";
 
 // Постоянные - переменные:
 var mainTimer = Timers.GetContext().Get("Main");
@@ -31,8 +34,8 @@ Properties.GetContext().GameModeName.Value = "GameModes/Team Dead Match";
 TeamsBalancer.IsAutoBalance = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // Стандартные, команды:
-Teams.Add("Blue", "<b>ПРЯЧУЩИЕСЯ</b>", new Color(0, 0, 1, 0));
-Teams.Add("Red", "<b>ИСКАТЕЛИ</b>", new Color(1, 0, 0, 0));
+Teams.Add("Blue", "Teams/Blue", new Color(0, 0, 1, 0));
+Teams.Add("Red", "Teams/Red", new Color(1, 0, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
@@ -94,7 +97,7 @@ Teams.OnPlayerChangeTeam.Add(function(Player){ Player.Spawns.Spawn()});
 var immortalityTimerName="immortality";
 Spawns.GetContext().OnSpawn.Add(function(Player){
 	Player.Properties.Immortality.Value=true;
-	timer=Player.Timers.Get(immortalityTimerName).Restart(6);
+	timer=Player.Timers.Get(immortalityTimerName).Restart(5);
 });
 Timers.OnPlayerTimer.Add(function(Timer){
 	if(Timer.Id!=immortalityTimerName) return;
@@ -125,7 +128,7 @@ Damage.OnDeath.Add(function(Player) {
 Damage.OnKill.Add(function(Player, Killed) {
 	if (Killed.Team != null && Killed.Team != Player.Team) {
 		++Player.Properties.Kills.Value;
-		Player.Properties.Scores.Value += 500;
+		Player.Properties.Scores.Value += 100;
 	}
 });
 
