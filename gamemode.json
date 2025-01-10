@@ -1,6 +1,6 @@
 {
-  "Name": "ФАРМ <i>(API 1.0)</i>",
-  "Description": "Farm sunducow i opyta. Фарм сундуков и опыта",
+  "Name": "<b><color=Orange><i>Ѵ</i></a><color=Yellow>łҎ</a></b>",
+  "Description": "<b><color=Yellow>VIP:</a> <i><color=Lime>The blue ones should protect the VIP from the red ones! && .Синие должны - защитить випа, от красных!</a></i></b>",
   "StartClientVersion": 334,
   "MapFilter": {
     "IsBlank": false,
@@ -21,10 +21,6 @@
         "Name": "MapRotation",
         "DisplayName": "СМЕНА КАРТ",
         "Default": true
-      },
-      {
-        "Name": "OnlyKnives",
-        "DisplayName": "БОЙ НА НОЖАХ"
       },
       {
         "Name": "PartialDesruction",
