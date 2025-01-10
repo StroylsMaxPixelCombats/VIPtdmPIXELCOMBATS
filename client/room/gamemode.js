@@ -125,16 +125,17 @@ Spawns.OnSpawn.Add(function(Player) {
 // Счётчик - смертей:
 Damage.OnDeath.Add(function(Player) {
 	++Player.Properties.Deaths.Value;
-	   Spawns.GetContext().Despawn();
+	Spawns.GetContext().Despawn();
+	Player.contextedProperties.SkinType.Value = 1;
+	Player.Ui.Hint.Value = "!Ожидайте, конец - матча!";
+	if (VipTeam.Properties.Deaths.Value == 1) {
+	   SetEnd0fMatchRedTeam();
 });
 // Счётчик - убийствов:
 Damage.OnKill.Add(function(Player, Killed) {
 	if (Killed.Team != null && Killed.Team != Player.Team) {
 		++Player.Properties.Kills.Value;
 		Player.Properties.Scores.Value += 100;
-		if (Player.Properties.Kills.Value == 1) {
-		  if (VipTeam.Properties.Get("Deaths").Value == 1) {
-                    SetEnd0fMatchRedTeam();
 	}
     }
 });
