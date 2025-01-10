@@ -268,6 +268,9 @@ function SetEnd0fMatchRedTeam() {
 function SetConets() {
 	stateProp.Value = ConetsStateValue;
 	mainTimer.Restart(ConetsTime);
+
+	Spawns.GetContext().Enable = false;
+	Spawns.GetContext().Despawn();
 	Game.GameOver(LeaderBoard.GetTeams());
 }
 function RestartGame() {
