@@ -6,6 +6,7 @@ var WaitingPlayersTime = 6;
 var BuildBaseTime = 31;
 var GameModeTime = 601;
 var EndOfMatchTime = 11;
+var ConetsTime = 11;
 
 // Константы, имён:
 var WaitingStateValue = "Waiting";
@@ -226,17 +227,46 @@ if (GameMode.Parameters.GetBool("MeleeVip") {
 }	
 function SetEndOfMatchMode() {
 	stateProp.Value = EndOfMatchStateValue;
-	Ui.GetContext().Hint.Value = "!Время, вышло!";
+	Ui.GetContext().Hint.Value = "!Время, вышло/Вип и синие, победили!";
+          BlueTeam.Properties.Scores.Value += 1000;
+	  BlueTeam.Properties.Kills.Value += 1000;
+	    VipTeam.Properties.Scores.Value += 1000;
+	    VipTeam.Properties.Kills.Value += 1000;
+	RedTeam.Properties.Scores.Value -= 1000;
+	RedTeam.Properties.Kills.Value = -= 1000;
+
+	var inventory = Inventory.GetContext();
+	inventory.Main.Value = false;
+	inventory.Secondary.Value = false;
+	inventory.Melee.Value = false;
+	inventory.Explosive.Value = false;
+	inventory.Build.Value = false;
+	
 	mainTimer.Restart(EndOfMatchTime);
 }
 function SetEnd0fMatchRedTeam() {
 	stateProp.Value = EndOfMatchStateValue;
 	Ui.GetContext().Hint.Value = "!Красные - победили, вип убит!";
+	BlueTeam.Properties.Scores.Value -= 1000;
+	BlueTeam.Properties.Kills.Value -= 1000;
+	    VipTeam.Properties.Scores.Value -= 1000;
+	    VipTeam.Properties.Kills.Value = -= 1000;
+	RedTeam.Properties.Scores.Value += 1000;
+	RedTeam.Properties.Kills.Value += 1000;
+
+	var inventory = Inventory.GetContext();
+	inventory.Main.Value = false;
+	inventory.Secondary.Value = false;
+	inventory.Melee.Value = false;
+	inventory.Explosive.Value = false;
+	inventory.Build.Value = false;
+	
 	mainTimer.Restart(End0fMatchTime);
+	
 }
 function SetConets() {
 	stateProp.Value = ConetsStateValue;
-	mainTimer.Restart(11);
+	mainTimer.Restart(ConetsTime);
 	Game.GameOver(LeaderBoard.GetTeams());
 }
 function RestartGame() {
