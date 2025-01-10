@@ -12,6 +12,7 @@ var WaitingStateValue = "Waiting";
 var BuildModeStateValue = "BuildMode";
 var GameStateValue = "Game";
 var EndOfMatchStateValue = "EndOfMatch";
+var ConetsStateValue = "ConetsMode";
 
 // Постоянные - переменные:
 var mainTimer = Timers.GetContext().Get("Main");
@@ -31,20 +32,23 @@ Properties.GetContext().GameModeName.Value = "GameModes/Team Dead Match";
 TeamsBalancer.IsAutoBalance = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // Стандартные, команды:
-Teams.Add("Blue", "Teams/Blue", new Color(0, 0, 1, 0));
-Teams.Add("Red", "Teams/Red", new Color(1, 0, 0, 0));
+Teams.Add("Blue", "<b><size=30><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>", new Color(0, 0, 1, 0));
+Teams.Add("Red", "<b><size=30><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>", new Color(1, 0, 0, 0));
 Teams.Add("Yellow", "<b><size=30><color=#c67217>Ѵ</color><color=#c68f14>ł</color><color=#c6ac11>Ҏ</color></size></b>", new Color(1, 1, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
+var VipTeam = Teams.Get("Yellow");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
+VipTeam.Spawns.SpawnPointsGroups.Add(3);
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
 BlueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
+VipTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 RedTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
 
 // Максимальные - смерти, команд:
 var MaxDeaths = Players.MaxCount * 5;
 Teams.Get("Red").Properties.Get("Deaths").Value = MaxDeaths;
-Teams.Get("Blue").Properties.Get("Deaths").Value = MaxDeaths;
+Teams.Get("Yellow").Properties.Get("Deaths").Value = MaxDeaths;
 // Стандартные - лидерБорды:
 LeaderBoard.PlayerLeaderBoardValues = [
 	{
@@ -121,13 +125,18 @@ Spawns.OnSpawn.Add(function(Player) {
 // Счётчик - смертей:
 Damage.OnDeath.Add(function(Player) {
 	++Player.Properties.Deaths.Value;
+	   Spawns.GetContext().Despawn();
 });
 // Счётчик - убийствов:
 Damage.OnKill.Add(function(Player, Killed) {
 	if (Killed.Team != null && Killed.Team != Player.Team) {
 		++Player.Properties.Kills.Value;
 		Player.Properties.Scores.Value += 100;
+		if (Player.Properties.Kills.Value == 1) {
+		  if (VipTeam.Properties.Get("Deaths").Value == 1) {
+                    SetEnd0fMatchRedTeam();
 	}
+    }
 });
 
 // Переключение - игровых, режимов:
@@ -143,6 +152,9 @@ mainTimer.OnTimer.Add(function() {
 		SetEndOfMatchMode();
 		break;
 	case EndOfMatchStateValue:
+		SetConets();
+		break;
+	case ConetsStateValue:
 		RestartGame();
 		break;
 	}
@@ -155,20 +167,29 @@ SetWaitingMode();
 function SetWaitingMode() {
 	stateProp.Value = WaitingStateValue;
 	Ui.GetContext().Hint.Value = "Ожидание, игроков...";
-	Spawns.Enable = false;
+	Spawns.GetContext().Enable = false;
 	mainTimer.Restart(WaitingPlayersTime);
 }
 
 function SetBuildMode() 
 {
+	BlueTeam.Ui.Hint.Value = "!Подготовьтесь, защищать - випа!";
+	VipTeam.Ui.Hint.Value = "!Следуйте, за охраной/или - прячьтесь!";
+	RedTeam.Ui.Hint.Value = "!Подготовьтесь, убивать - випа!";
 	stateProp.Value = BuildModeStateValue;
-	Ui.GetContext().Hint.Value = "!Застраивайте базу - и атакуйте, врагов!";
+	Ui.GetContext().Hint.Value = "";
 	var inventory = Inventory.GetContext();
+	if (GameMode.Parameters.GetBool("MeleeVip") {
+	VipTeam.inventory.Melee.Value = true;
+	}
 	inventory.Main.Value = false;
 	inventory.Secondary.Value = false;
-	inventory.Melee.Value = true;
+	BlueTeam.inventory.Melee.Value = true;
+	RedTeam.inventory.Melee.Value = true;
 	inventory.Explosive.Value = false;
 	inventory.Build.Value = true;
+	BlueTeam.inventory.Secondary.Value = true;
+	RedTeam.inventory.Secondary.Value = true;
 
 	mainTimer.Restart(BuildBaseTime);
 	Spawns.GetContext().Enable = true;
@@ -177,51 +198,48 @@ function SetBuildMode()
 function SetGameMode() 
 {
 	stateProp.Value = GameStateValue;
-	Ui.GetContext().Hint.Value = "!Атакуйте, врагов!";
+	BlueTeam.Ui.Hint.Value = "!Защищайте, випа!";
+	RedTeam.Ui.Hint.Value = "!Убейте - випа!";
+        VipTeam.Ui.Hint.Value = "!Следуй, за охраной/или - прячься!";
 
-	var inventory = Inventory.GetContext();
-	if (GameMode.Parameters.GetBool("OnlyKnives")) {
-		inventory.Main.Value = false;
-		inventory.Secondary.Value = false;
-		inventory.Melee.Value = true;
-		inventory.Explosive.Value = false;
-		inventory.Build.Value = true;
-	} else {
-		inventory.Main.Value = true;
-		inventory.Secondary.Value = true;
-		inventory.Melee.Value = true;
-		inventory.Explosive.Value = true;
-		inventory.Build.Value = true;
-	}
+if (GameMode.Parameters.GetBool("MeleeVip") {
+	VipTeam.inventory.Melee.Value = true;
+}
+	BlueTeam.inventory.Main.Value = true;
+	BlueTeam.inventory.Secondary.Value = true;
+	BlueTeam.inventory.Melee.Value = true;
+	BlueTeam.inventory.Build.Value = true;
+	RedTeam.inventory.Main.Value = true;
+	RedTeam.inventory.Secondary.Value = true;
+	RedTeam.inventory.Melee.Value = true;
+	RedTeam.inventory.Build.Value = true;
+	VipTeam.inventory.Main.Value = false;
+        VipTeam.inventory.Secondary.Value = false;
+	VipTeam.inventory.Melee.Value = false;
+	VipTeam.inventory.Build.Value = false;
+	
 
 	mainTimer.Restart(GameModeTime);
 	Spawns.GetContext().Spawn();
 	SpawnTeams();
 }	
-function OnVoteResult(Value) {
-	if (Value.Result === null) return;
-	NewGame.RestartGame(Value.Result);
-}
-NewGameVote.OnResult.Add(OnVoteResult); // вынесено из функции, которая выполняется только на сервере, чтобы не зависало, если не отработает, также чтобы не давало баг, если вызван метод 2 раза и появилось 2 подписки
-
-function start_vote() {
-	NewGameVote.Start({
-		Variants: [{ MapId: 0 }],
-		Timer: VoteTime
-	}, MapRotation ? 3 : 0);
-}
 function SetEndOfMatchMode() {
 	stateProp.Value = EndOfMatchStateValue;
-	Ui.GetContext().Hint.Value = "!Конец, матча!";
-
+	Ui.GetContext().Hint.Value = "!Время, вышло!";
 	mainTimer.Restart(EndOfMatchTime);
+}
+function SetEnd0fMatchRedTeam() {
+	stateProp.Value = EndOfMatchStateValue;
+	Ui.GetContext().Hint.Value = "!Красные - победили, вип убит!";
+	mainTimer.Restart(End0fMatchTime);
+}
+function SetConets() {
+	stateProp.Value = ConetsStateValue;
+	mainTimer.Restart(11);
 	Game.GameOver(LeaderBoard.GetTeams());
-	Spawns.GetContext().Enable = false;
-	Spawns.GetContext().Despawn();
 }
 function RestartGame() {
 	Game.RestartGame();
-	mainTimer.Restart(MockModeTime);
 }
 function SpawnTeams() {
 	var Teams = Teams.Spawn();
