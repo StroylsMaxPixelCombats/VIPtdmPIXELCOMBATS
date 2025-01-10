@@ -43,6 +43,7 @@ BlueTeam.Spawns.SpawnPointsGroups.Add(1);
 VipTeam.Spawns.SpawnPointsGroups.Add(3);
 RedTeam.Spawns.SpawnPointsGroups.Add(2);
 BlueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
+VipTeam.contextedProperties.SkinType.Value = 2;
 VipTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 RedTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
 
