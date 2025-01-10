@@ -2,19 +2,16 @@ import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGameVote, NewGame } from 'pixel_combats/room';
 
 // Константы:
-var WaitingPlayersTime = 1;
+var WaitingPlayersTime = 6;
 var BuildBaseTime = 31;
 var GameModeTime = 601;
 var EndOfMatchTime = 11;
-var VoteTime = 21;
-var MockModeTime = 21;
 
 // Константы, имён:
 var WaitingStateValue = "Waiting";
 var BuildModeStateValue = "BuildMode";
 var GameStateValue = "Game";
 var EndOfMatchStateValue = "EndOfMatch";
-var MockModeStateValue = "MockMode";
 
 // Постоянные - переменные:
 var mainTimer = Timers.GetContext().Get("Main");
@@ -36,6 +33,7 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // Стандартные, команды:
 Teams.Add("Blue", "Teams/Blue", new Color(0, 0, 1, 0));
 Teams.Add("Red", "Teams/Red", new Color(1, 0, 0, 0));
+Teams.Add("Yellow", "<b><size=30><color=#c67217>Ѵ</color><color=#c68f14>ł</color><color=#c6ac11>Ҏ</color></size></b>", new Color(1, 1, 0, 0));
 var BlueTeam = Teams.Get("Blue");
 var RedTeam = Teams.Get("Red");
 BlueTeam.Spawns.SpawnPointsGroups.Add(1);
