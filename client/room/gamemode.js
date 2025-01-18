@@ -231,10 +231,8 @@ function SetEndOfMatchMode() {
 	Ui.GetContext().Hint.Value = "!Время, вышло/Вип и синие, победили!";
           BlueTeam.Properties.Scores.Value += 1000;
 	  BlueTeam.Properties.Kills.Value += 1000;
-	    VipTeam.Properties.Scores.Value += 1000;
-	    VipTeam.Properties.Kills.Value += 1000;
-	RedTeam.Properties.Scores.Value -= 1000;
-	RedTeam.Properties.Kills.Value = -= 1000;
+	  VipTeam.Properties.Scores.Value += 1000;
+	  VipTeam.Properties.Kills.Value += 1000;
 
 	var inventory = Inventory.GetContext();
 	inventory.Main.Value = false;
@@ -248,10 +246,6 @@ function SetEndOfMatchMode() {
 function SetEnd0fMatchRedTeam() {
 	stateProp.Value = EndOfMatchStateValue;
 	Ui.GetContext().Hint.Value = "!Красные - победили, вип убит!";
-	BlueTeam.Properties.Scores.Value -= 1000;
-	BlueTeam.Properties.Kills.Value -= 1000;
-	    VipTeam.Properties.Scores.Value -= 1000;
-	    VipTeam.Properties.Kills.Value = -= 1000;
 	RedTeam.Properties.Scores.Value += 1000;
 	RedTeam.Properties.Kills.Value += 1000;
 
