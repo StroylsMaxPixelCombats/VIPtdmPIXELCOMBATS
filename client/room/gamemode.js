@@ -1,5 +1,5 @@
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGameVote, NewGame } from 'pixel_combats/room';
+import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer } from 'pixel_combats/room';
 
 // Константы:
 var WaitingPlayersTime = 6;
@@ -132,6 +132,7 @@ Damage.OnDeath.Add(function(Player) {
 	Player.Ui.Hint.Value = "!Ожидайте, конец - матча!";
 	if (VipTeam.Properties.Deaths.Value == 1) {
 	   SetEnd0fMatchRedTeam();
+	}
 });
 // Счётчик - убийствов:
 Damage.OnKill.Add(function(Player, Killed) {
