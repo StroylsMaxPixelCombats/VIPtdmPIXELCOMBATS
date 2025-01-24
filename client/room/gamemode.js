@@ -127,12 +127,9 @@ Spawns.OnSpawn.Add(function(Player) {
 // Счётчик - смертей:
 Damage.OnDeath.Add(function(Player) {
 	++Player.Properties.Deaths.Value;
-	Spawns.GetContext().Despawn();
+	Spawns.Despawn();
 	Player.contextedProperties.SkinType.Value = 1;
 	Player.Ui.Hint.Value = "!Ожидайте, конец - матча!";
-	if (VipTeam.Properties.Deaths.Value == 1) {
-	   SetEnd0fMatchRedTeam();
-	}
 });
 // Счётчик - убийствов:
 Damage.OnKill.Add(function(Player, Killed) {
@@ -181,11 +178,8 @@ function SetBuildMode()
 	VipTeam.Ui.Hint.Value = "!Следуйте, за охраной/или - прячьтесь!";
 	RedTeam.Ui.Hint.Value = "!Подготовьтесь, убивать - випа!";
 	stateProp.Value = BuildModeStateValue;
-	Ui.GetContext().Hint.Value = "";
+	
 	var inventory = Inventory.GetContext();
-	if (GameMode.Parameters.GetBool("MeleeVip") {
-	VipTeam.inventory.Melee.Value = true;
-	}
 	inventory.Main.Value = false;
 	inventory.Secondary.Value = false;
 	BlueTeam.inventory.Melee.Value = true;
@@ -206,9 +200,6 @@ function SetGameMode()
 	RedTeam.Ui.Hint.Value = "!Убейте - випа!";
         VipTeam.Ui.Hint.Value = "!Следуй, за охраной/или - прячься!";
 
-if (GameMode.Parameters.GetBool("MeleeVip") {
-	VipTeam.inventory.Melee.Value = true;
-}
 	BlueTeam.inventory.Main.Value = true;
 	BlueTeam.inventory.Secondary.Value = true;
 	BlueTeam.inventory.Melee.Value = true;
@@ -225,15 +216,12 @@ if (GameMode.Parameters.GetBool("MeleeVip") {
 
 	mainTimer.Restart(GameModeTime);
 	Spawns.GetContext().Spawn();
-	SpawnTeams();
 }	
 function SetEndOfMatchMode() {
 	stateProp.Value = EndOfMatchStateValue;
 	Ui.GetContext().Hint.Value = "!Время, вышло/Вип и синие, победили!";
-          BlueTeam.Properties.Scores.Value += 1000;
-	  BlueTeam.Properties.Kills.Value += 1000;
+          BlueTeam.Properties.Scores.Value += 500;
 	  VipTeam.Properties.Scores.Value += 1000;
-	  VipTeam.Properties.Kills.Value += 1000;
 
 	var inventory = Inventory.GetContext();
 	inventory.Main.Value = false;
@@ -248,7 +236,6 @@ function SetEnd0fMatchRedTeam() {
 	stateProp.Value = EndOfMatchStateValue;
 	Ui.GetContext().Hint.Value = "!Красные - победили, вип убит!";
 	RedTeam.Properties.Scores.Value += 1000;
-	RedTeam.Properties.Kills.Value += 1000;
 
 	var inventory = Inventory.GetContext();
 	inventory.Main.Value = false;
